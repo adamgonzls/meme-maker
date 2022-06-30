@@ -1,14 +1,25 @@
+import memesData from "../memesData";
+
 export default function MemeForm() {
-  function makeMeme(e) {
-    e.preventDefault()
-    console.log('button was clicked')
+  function handleGetMemeImage(e) {
+    const { memes } = memesData.data;
+    const selectedImageURL =
+      memes[Math.floor(Math.random() * memes.length)].url;
+    console.log(selectedImageURL);
   }
-  
+
   return (
-    <form>
-      <input type="text" />
-      <input type="text" />
-      <button onClick={makeMeme}>MakeMeme</button>
-    </form>
-  )
+    <div>
+      <input
+        type="text"
+        placeholder="Top text"
+        className="something"
+      />
+      <input
+        type="text"
+        placeholder="Bottom text"
+      />
+      <button onClick={handleGetMemeImage}>Get a new meme image 🖼</button>
+    </div>
+  );
 }

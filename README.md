@@ -1,6 +1,6 @@
 # Meme Maker
 
-Type some words, press Make Meme and create a meme with a random image.
+Make a Meme with a random image using this app.
 
 <!-- Check it out: [Color Picker](https://color-scheme-picker.netlify.app/) -->
 
@@ -10,8 +10,8 @@ Type some words, press Make Meme and create a meme with a random image.
 
 - React
 - JavaScript (ES6)
-<!-- - JSON API -->
-<!-- - localStorage -->
+  <!-- - JSON API -->
+  <!-- - localStorage -->
 - CSS
 - npm
 - Vite

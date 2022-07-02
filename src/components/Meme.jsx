@@ -2,16 +2,29 @@ import { useState } from "react"
 import memesData from "../memesData"
 
 export default function MemeForm() {
-  const [memeImage, setMemeImage] = useState("https://i.imgflip.com/tau4.jpg")
-  const [memeImageAlt, setMemeImageAlt] = useState("I Should Buy A Boat Cat")
+  const [randomMemeData, setRandomMemeData] = useState({
+    topText: "",
+    bottomText: "",
+    url: "https://i.imgflip.com/tau4.jpg",
+    alt: "I Should Buy A Boat Cat",
+  })
 
-  function handleGetMemeImage(e) {
+  const [allMemeData, setAllMemeData] = useState(memesData)
+
+  console.log(randomMemeData)
+
+  function handleGetMemeImage() {
     const { memes } = memesData.data
     const randomMeme = memes[Math.floor(Math.random() * memes.length)]
     const randomMemeImageURL = randomMeme.url
     const randomMemeAlt = randomMeme.name
-    setMemeImage(randomMemeImageURL)
-    setMemeImageAlt(randomMemeAlt)
+    setRandomMemeData((prevMemeData) => {
+      return {
+        ...prevMemeData,
+        url: randomMemeImageURL,
+        alt: randomMemeAlt,
+      }
+    })
   }
 
   return (
@@ -29,8 +42,8 @@ export default function MemeForm() {
         <button onClick={handleGetMemeImage}>Get a new meme image 🖼</button>
       </div>
       <img
-        src={memeImage}
-        alt={memeImageAlt}
+        src={randomMemeData.url}
+        alt={randomMemeData.alt}
       />
     </main>
   )

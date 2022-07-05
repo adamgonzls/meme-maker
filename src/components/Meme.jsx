@@ -1,5 +1,4 @@
-import { useState } from "react"
-import memesData from "../memesData"
+import { useState, useEffect } from "react"
 
 export default function MemeForm() {
   const [memeData, setMemeData] = useState({
@@ -9,13 +8,17 @@ export default function MemeForm() {
     alt: "I Should Buy A Boat Cat",
   })
 
-  const [allMemeData, setAllMemeData] = useState(memesData)
+  const [allMemesData, setAllMemesData] = useState([])
 
-  console.log(memeData)
+  useEffect(() => {
+    fetch("https://api.imgflip.com/get_memes")
+      .then((res) => res.json())
+      .then((data) => setAllMemesData(data.data.memes))
+  }, [])
 
   function handleGetMemeImage() {
-    const { memes } = memesData.data
-    const randomMeme = memes[Math.floor(Math.random() * memes.length)]
+    const randomMeme =
+      allMemesData[Math.floor(Math.random() * allMemesData.length)]
     const randomMemeImageURL = randomMeme.url
     const randomMemeAlt = randomMeme.name
     setMemeData((prevMemeData) => {
@@ -27,19 +30,30 @@ export default function MemeForm() {
     })
   }
 
-  // set up a new event handler for the text
+  function handleTextChange(event) {
+    const { name, value } = event.target
+    setMemeData((prevMemeData) => {
+      return {
+        ...prevMemeData,
+        [name]: value,
+      }
+    })
+  }
 
   return (
     <main>
       <div>
         <input
+          name="topText"
           type="text"
           placeholder="Top text"
-          className="something"
+          onChange={handleTextChange}
         />
         <input
+          name="bottomText"
           type="text"
           placeholder="Bottom text"
+          onChange={handleTextChange}
         />
         <button onClick={handleGetMemeImage}>Get a new meme image 🖼</button>
       </div>
